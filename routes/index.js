@@ -1,5 +1,5 @@
-const TestRouterFn = require("/.test");
+const TestRouterFn = require("./test");
 
-module.Exports = {
+module.exports = [
     TestRouterFn
-}
+]

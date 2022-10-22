@@ -3,12 +3,11 @@ const ExpressSwaggerFnGenerator = require("express-swagger-producer");
 const routes = require("./routes/index");
 
 const app = express();
-const router = Express.Router();
+const router = express.Router();
 
 routes.forEach((routerFn) => {
     routerFn(router);
 });
-
 app.use("/api",router);
 
 app.use(express.json());
@@ -25,7 +24,7 @@ let options = {
             version:"1.0.0"
         },
         host:"localhost",
-        swagger:"2.0",
+        swagger:"2.0", //openapi: '3.0.0'
         basePath:"/api",
         produces:[
             "application/json",
