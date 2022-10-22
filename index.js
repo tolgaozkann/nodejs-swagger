@@ -44,8 +44,9 @@ let options = {
     files: ['./routes/**/*.js']
 }
 
+const ExpressSwaggerFn = ExpressSwaggerFnGenerator(app);
 
-
+ExpressSwaggerFn(options);
 app.listen(5001,()=>{
     console.log("Server is working on  5001. port");
 })
