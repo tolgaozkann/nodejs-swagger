@@ -10,43 +10,45 @@ routes.forEach((routerFn) => {
 });
 app.use("/api",router);
 
-app.use(express.json());
 app.use(express.urlencoded({
     extended:true
 }));
+app.use(express.json());
+
+app.use("/api",router);
 
 
 let options = {
-    swaggerDefinition :{
-        info : {
-            description : "First NodeJs Project",
-            title:"First Api",
-            version:"1.0.0"
+    swaggerDefinition: {
+        info: {
+            description: 'This is a server with enabled Swagger documentation feature',
+            title: 'Simple Server',
+            version: '1.0.0',
         },
-        host:"localhost",
-        swagger:"2.0", //openapi: '3.0.0'
-        basePath:"/api",
-        produces:[
+        host: 'localhost',
+        swagger: '2.0', //  or openapi:'3.0.0'
+        basePath: '/api',
+        produces: [
             "application/json",
             "application/xml"
         ],
-        schemas: ['http','https'],
-        securityDefinition:{
-            JWT:{
-                type:'apikey',
-                in:'header',
-                name:'Authorization',
-                description:'Basic apikey authorization in the system'
+        schemes: ['http', 'https'],
+        securityDefinitions: {
+            JWT: {
+                type: 'apiKey',
+                in: 'header',
+                name: 'Authorization',
+                description: "Basic apiKey authorization in the system",
             }
         }
     },
-    basedir : __dirname,
-    files: ['./routes/**/*.js']
-}
+    basedir: __dirname, //app absolute path
+    files: ['./routes/**/*.js'] //Path to the API handle folder
+};
 
-const ExpressSwaggerFn = ExpressSwaggerFnGenerator(app);
+const ExpressSwaggerFn = ExpressSwaggerFnGenerator(app); // Please add this line where your routes layer starts
+ExpressSwaggerFn(options); // Enable this if you want to generate Swagger document
 
-ExpressSwaggerFn(options);
 app.listen(5001,()=>{
     console.log("Server is working on  5001. port");
 })
